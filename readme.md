@@ -9,8 +9,6 @@
     - [ ] get job state
     - [ ] worker health check
     - [ ] enqueue instance job
-    - [ ] kill job when it running
-    - [ ] re-assign jobs when it's running worker dead
 
   - Scheduler
     - [ ] fetch nearby scheduled job
@@ -29,3 +27,5 @@
     - [ ] stop pipeline instantly 1 job error
   - [ ] specify worker for job
   - [ ] import/export job define 
+  - [ ] kill job when it running
+  - [ ] re-assign jobs when it's running worker dead
