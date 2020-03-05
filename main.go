@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"xqueue/log"
+)
 
-func main(){
-	fmt.Print("hello world")
+var logger = log.NewLogger("main")
+
+func init() {
+	log.LoggerInit()
+}
+
+func main() {
+	logger.Info("hello")
 }
