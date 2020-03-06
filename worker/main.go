@@ -42,14 +42,14 @@ func NewAgent(name string, eIns entity.Entity) *WorkerAgent {
 
 func (a *WorkerAgent) Start() {
 	healtcheckRun := util.SetInterval(
-		a.healthCheckReport,
+		a.HealthCheckReport,
 		5000,
 		false,
 	)
 	a.intervalRun = append(a.intervalRun, healtcheckRun)
 }
 
-func (a *WorkerAgent) healthCheckReport() {
+func (a *WorkerAgent) HealthCheckReport() {
 	info := HealthCheck()
 	rawMsg := MessagePublish{
 		Name:    a.name,

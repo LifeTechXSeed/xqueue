@@ -12,3 +12,7 @@ func CreateNewEntity() *Entity {
 		Redis: redisIns,
 	}
 }
+
+func (e *Entity) Release() {
+	e.Redis.Close()
+}

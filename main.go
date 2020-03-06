@@ -16,6 +16,8 @@ func init() {
 func main() {
 	logger.Info("hello")
 	enIns := entity.CreateNewEntity()
+	defer enIns.Release()
+
 	wAgent := worker.NewAgent("test", *enIns)
 	defer wAgent.Stop()
 

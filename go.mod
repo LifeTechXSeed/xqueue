@@ -10,4 +10,5 @@ require (
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/sirupsen/logrus v1.4.2
+	github.com/stretchr/testify v1.5.1
 )
