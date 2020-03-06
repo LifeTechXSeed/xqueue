@@ -3,7 +3,7 @@ package entity
 import "xqueue/redis"
 
 type Entity struct {
-	Redis *redis.RedisCli
+	Redis redis.RedisCli
 }
 
 func CreateNewEntity() *Entity {

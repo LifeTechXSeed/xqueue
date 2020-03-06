@@ -3,12 +3,16 @@ package redis
 import (
 	"xqueue/log"
 	"xqueue/util"
+
+	"github.com/go-redis/redis"
 )
 
 var logger = log.NewLogger("redis")
 
 type RedisCli interface {
 	Close() error
+	Subscribe(channel string) *redis.PubSub
+	Publish(chanel, message string) error
 }
 
 func CreateNewCache() RedisCli {
