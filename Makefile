@@ -8,3 +8,6 @@ run:
 
 build: 
 	go build -o ./bin/xqueue
+
+test: 
+	go test -v ./test

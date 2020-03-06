@@ -13,6 +13,7 @@ import (
 func TestHealthCheck(t *testing.T) {
 	assert := assert.New(t)
 	entityIns := entity.CreateNewEntity()
+	defer entityIns.Release()
 
 	wAgent := worker.NewAgent("test", *entityIns)
 	channel := util.GetEnv("ARBITER_CHANNEL", "xqueue")
