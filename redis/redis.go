@@ -13,6 +13,10 @@ type RedisCli interface {
 	Close() error
 	Subscribe(channel string) *redis.PubSub
 	Publish(chanel, message string) error
+	ZRange(key string, start, stop int64) ([]string, error)
+	ZJobToQueue(key string, job_id, priority int) error
+	HSet(key, field, value string) error
+	HGet(key, field string) (string, error)
 }
 
 func CreateNewCache() RedisCli {
