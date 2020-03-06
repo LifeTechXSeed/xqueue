@@ -15,6 +15,7 @@ const (
 
 var logger = log.NewLogger("worker-agent")
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
+var arbiterChannel = util.GetEnv("ARBITER_CHANNEL", "xqueue")
 
 type WorkerAgent struct {
 	name        string
@@ -30,7 +31,7 @@ type MessagePublish struct {
 }
 
 func NewAgent(name string, eIns entity.Entity) *WorkerAgent {
-	channel := eIns.Redis.Subscribe("xqueue")
+	channel := eIns.Redis.Subscribe(arbiterChannel)
 	return &WorkerAgent{
 		name:        name,
 		entityIns:   &eIns,
@@ -60,7 +61,7 @@ func (a *WorkerAgent) healthCheckReport() {
 		logger.Error("error when stringify report")
 		return
 	}
-	err = a.entityIns.Redis.Publish("xqueue", string(msg))
+	err = a.entityIns.Redis.Publish(arbiterChannel, string(msg))
 	if err != nil {
 		logger.Error("error when publish message ")
 	}

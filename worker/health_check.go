@@ -36,7 +36,7 @@ func MemUsage() float64 {
 		return 0
 	}
 
-	return float64(mem.Used/mem.Total) * 100
+	return (float64(mem.Used) / float64(mem.Total)) * 100
 }
 
 func CpuUsage() float64 {
@@ -51,7 +51,7 @@ func CpuUsage() float64 {
 	}
 
 	total := cpu.Total - oldCPUStat.Total
-	usage := (cpu.User - oldCPUStat.User) / total * 100
+	usage := float64(cpu.User-oldCPUStat.User) / float64(total) * 100
 
 	oldCPUStat = cpu
 
