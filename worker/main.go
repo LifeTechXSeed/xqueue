@@ -67,6 +67,10 @@ func (a *WorkerAgent) HealthCheckReport() {
 	}
 }
 
+func (a *WorkerAgent) GetJob() string {
+	return dequeue(*a.entityIns)
+}
+
 func (a *WorkerAgent) Stop() {
 	for _, run := range a.intervalRun {
 		run <- true

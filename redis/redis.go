@@ -11,10 +11,13 @@ var logger = log.NewLogger("redis")
 
 type RedisCli interface {
 	Close() error
+	Del(key string) error
 	Subscribe(channel string) *redis.PubSub
 	Publish(chanel, message string) error
 	ZRange(key string, start, stop int64) ([]string, error)
 	ZJobToQueue(key string, job_id, priority int) error
+	ZRem(key, id string) error
+	ZCount(key, max, min string) (int64, error)
 	HSet(key, field, value string) error
 	HGet(key, field string) (string, error)
 }
