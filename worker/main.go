@@ -22,6 +22,7 @@ type WorkerAgent struct {
 	entityIns   *entity.Entity
 	channel     *redis.PubSub
 	intervalRun []chan bool
+	queueKey    string
 }
 
 type MessagePublish struct {
@@ -37,6 +38,7 @@ func NewAgent(name string, eIns entity.Entity) *WorkerAgent {
 		entityIns:   &eIns,
 		channel:     channel,
 		intervalRun: []chan bool{},
+		queueKey:    util.JobQueueKey + ":" + name,
 	}
 }
 
@@ -68,12 +70,13 @@ func (a *WorkerAgent) HealthCheckReport() {
 }
 
 func (a *WorkerAgent) GetJob() string {
-	return dequeue(*a.entityIns)
+	return dequeue(*a.entityIns, a.queueKey)
 }
 
 func (a *WorkerAgent) Stop() {
 	for _, run := range a.intervalRun {
 		run <- true
 	}
+	_ = a.entityIns.Redis.Del(a.queueKey)
 	a.channel.Close()
 }

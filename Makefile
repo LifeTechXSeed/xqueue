@@ -10,4 +10,4 @@ build:
 	go build -o ./bin/xqueue
 
 test: 
-	go test -v ./test -parallel 1
+	ENV=Test go test -v ./test -parallel 1
