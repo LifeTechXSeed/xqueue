@@ -25,6 +25,10 @@ func Enqueue(eIns entity.Entity, job Job) (int, error) {
 	err = eIns.Redis.HSet(util.JobInfoPrefix+strconv.Itoa(job.Jid), util.JobCmdKey, job.Command)
 	if err != nil {
 		logger.Error("error when add job command")
+		err := eIns.Redis.ZRem(util.JobQueueKey, strconv.Itoa(job.Jid))
+		if err != nil {
+			logger.Error("error when remove job queue")
+		}
 		return 0, err
 	}
 
