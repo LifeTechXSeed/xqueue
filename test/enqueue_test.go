@@ -2,11 +2,17 @@ package test
 
 import (
 	"github.com/stretchr/testify/assert"
+	"strconv"
 	"testing"
 	"xqueue/arbiter"
 	"xqueue/entity"
 	"xqueue/util"
 )
+
+func afterTestEnqueue(eIns *entity.Entity, jobId int) {
+	eIns.Redis.Del(util.JobInfoPrefix + strconv.Itoa(jobId))
+	eIns.Redis.Del(util.JobQueueKey)
+}
 
 func TestEnqueue(t *testing.T) {
 	assert := assert.New(t)
@@ -20,6 +26,7 @@ func TestEnqueue(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer afterTestEnqueue(eIns, jobSampleId)
 
 	jobSampleId = 2
 	jobSample = arbiter.Job{Jid: jobSampleId, Command: "echo HELLO_WORLD 2", Priority: 1}
