@@ -35,11 +35,13 @@ func TestEnqueue(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	queueLen, err := eIns.Redis.ZCount(util.JobQueueKey, "+inf", "-inf")
+	ids, err := eIns.Redis.ZRange(util.JobQueueKey, 0, -1)
 	if err != nil {
 		t.Fatal(err)
 	}
 
+	expected := []string{"1", "2", "3"}
+
 	assert.Equal(3, jid)
-	assert.Equal(3, int(queueLen))
+	assert.Equal(expected, ids)
 }
